@@ -1,9 +1,13 @@
 {
     "name": "Vrijeme provedeno na karticama",
     "description": "Prati koliko vremena korisnik provodi na različitim karticama (internet stranicama)",
-    "version": "0.0",
+    "version": "1.0",
     "manifest_version": 2,
-    "permissions": ["tabs"],
+    "permissions": [
+      "tabs",
+      "activeTab",
+      "storage"
+  ],
     "icons": {
       "16": "icon-16.png",
       "32": "icon-32.png",
