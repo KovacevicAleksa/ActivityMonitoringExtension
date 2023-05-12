@@ -1,26 +1,28 @@
-var tabId = window.performance.getEntriesByType('navigation')[0].sourceIndex;
+chrome.tabs.onActivated.addListener(function(activeInfo) {
+  // getting URL
+  var tabURL = activeInfo.tab.url;
 
-var tabName = document.title;
+  // GET time active tab
+  var startTime = Date.now();
 
+  // storage time
+  chrome.storage.local.set({[tabURL]: startTime});
+});
 
-//Is brower supprt Page Visibility API
-if (typeof document.hidden !== "undefined") {
-  
-  document.addEventListener("visibilitychange", function() {
-    if (document.hidden) {
-        //tab is unactive
-      //trackTimeOnTab(false);
-      console.log("Tab je " + tabName +" ID "+ tabId)
-    } else {
-      //tab is active
-      //trackTimeOnTab(true);
-      console.log("Tab je " + tabName +" ID "+ tabId)
-      
-    }
+function calculateTime() {
+  var timeSpent = {};
+
+  chrome.storage.local.get(null, function(result) {
+      for (var key in result) {
+          var startTime = result[key];
+          var currentTime = Date.now();
+          var timeDifference = currentTime - startTime;
+
+          // storage time
+          timeSpent[key] = timeDifference;
+      }
+
+      // call function for storage
+      sortTabsByTime(timeSpent);
   });
-} else {
-    alert("Brower dont support Visibility API");
-
 }
-
-;
