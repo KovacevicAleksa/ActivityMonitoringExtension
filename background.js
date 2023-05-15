@@ -1,8 +1,10 @@
-let count = 1;
-setInterval(() => {
-  console.log(count);
-  if (count === 10) {
-    clearInterval();
-  }
-  count++;
-}, 1000);
+chrome.tabs.onUpdated.addLisener((tabId,tab) => {
+  const tabStorage = tabId;
+
+  chrome.tabs.sendMessage(tabId,{
+    type: "NEW",
+    tabId: tabId,
+
+  })
+
+}) 

@@ -12,6 +12,11 @@
   "background": {
       "service_worker": "background.js"
   },
+  "content_script": [{
+    "matches" : ["http://*.youtube.com/*"],
+    "js": ["contentScript.js"]
+
+  }],
   "action": {
       "default_popup": "popup.html",
       "default_icon": {
@@ -23,14 +28,12 @@
   },
   "options_page": "options.html",
   "permissions": [
-      "storage",
-      "activeTab",
-      "scripting",
-      "tabs",
-      "webNavigation",
-      "webRequest"
+    "storage",
+    "activeTab",
+    "scripting",
+    "tabs"
   ],
   "host_permissions": [
-    "*://*/*"
+    "https://www.google.com/*"
   ]
 }
